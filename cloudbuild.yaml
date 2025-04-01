@@ -1,7 +1,9 @@
 steps:
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         gcloud app deploy app.yaml --quiet
+options:
+  logging: CLOUD_LOGGING_ONLY
