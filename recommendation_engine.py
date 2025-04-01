@@ -12,8 +12,8 @@ class RecommendationEngine:
         print(f"Loading data from {processed_data_path}...")
         
         # Handle compressed files if needed
-        if processed_data_path.endswith('.gz'):
-            self.df = pd.read_csv(processed_data_path, compression='gzip')
+        if processed_data_path.endswith('.zip'):
+            self.df = pd.read_csv(processed_data_path, compression='zip')
         else:
             self.df = pd.read_csv(processed_data_path)
         
@@ -261,6 +261,6 @@ class RecommendationEngine:
 
 # Example usage
 if __name__ == "__main__":
-    engine = RecommendationEngine("processed_books.csv")
+    engine = RecommendationEngine("processed_books.csv.zip")
     
     
