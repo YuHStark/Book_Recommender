@@ -9,16 +9,26 @@ from sklearn.metrics.pairwise import cosine_similarity
 class RecommendationEngine:
     def __init__(self, processed_data_path):
         """Initialize the recommendation engine with processed book data."""
-        self.df = pd.read_csv(processed_data_path)
+        print(f"Loading data from {processed_data_path}...")
+        
+        # Handle compressed files if needed
+        if processed_data_path.endswith('.gz'):
+            self.df = pd.read_csv(processed_data_path, compression='gzip')
+        else:
+            self.df = pd.read_csv(processed_data_path)
+        
+        print(f"Loaded {len(self.df)} books")
+        
+        # Load the model
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.knn_model = None
         self.embeddings = None
         self.decision_tree = None
         
-        # Load or compute embeddings if not already in the dataframe
-        if 'embedding' not in self.df.columns:
-            print("Generating embeddings for book descriptions...")
-            self.embeddings = self.model.encode(self.df['book_desc'].tolist(), show_progress_bar=True)
+        # Generate embeddings for the dataset
+        print("Generating embeddings for book descriptions...")
+        self.embeddings = self.model.encode(self.df['book_desc'].tolist(), show_progress_bar=True)
+        print(f"Generated embeddings with shape: {self.embeddings.shape}")
         
         # Initialize KNN model for similar book recommendations
         self._init_knn_model()
