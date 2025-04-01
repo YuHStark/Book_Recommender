@@ -7,7 +7,7 @@ from recommendation_engine import RecommendationEngine
 app = Flask(__name__)
 
 # Initialize the recommendation engine
-engine = RecommendationEngine("processed_books.csv")
+engine = RecommendationEngine("processed_books_compressed.csv.gz")
 
 # Mapping functions for converting natural language to parameters
 def map_rating_level(rating_level):
